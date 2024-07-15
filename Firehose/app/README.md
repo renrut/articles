@@ -29,7 +29,7 @@ Finally, deploy the code to CDK using `cdk deploy` it will prompt you to approve
 ## Making Changes
 
 ### CDK Changes
-To make changes to the cdk, modify the constructs in [Appstack](Appstack.ts) or `/lib/stacks`, then re-run `npm run build` before calling `cdk deploy` again.
+To make changes to the cdk, modify the constructs in [Appstack](lib/AppStack.ts) or `/lib/stacks`, then re-run `npm run build` before calling `cdk deploy` again.
 
 ### Lambda Code Changes
 
@@ -40,14 +40,19 @@ To make changes to the lambda flattener code, navigate to the `/lambda` director
 Don't leave this up and get charged!
 
 To clean up, head to cloudformation and delete the stack or call `aws cloudformation delete-stack --stack-name FirehoseStack`. 
+
+### Manually Delete Kinesis and S3
 You may need to navigate to s3 and kinesis and manually delete the bucket and stream as well.
 
-`aws kinesis list-streams` to list the stream name
-`aws kinesis delete-stream --stream-name FirehoseStack-DataStream<id>`
+List the stream names `aws kinesis list-streams`
 
-`aws s3 ls`
-`aws s3 rm s3://firehosestack-destinationbucket<id> --recursive` to empty the bucket
-`aws s3api delete-bucket --bucket firehosestack-destinationbucket<id> --region us-west-2`
+Delete the stream `aws kinesis delete-stream --stream-name FirehoseStack-DataStream<id>`
+
+List the buckets `aws s3 ls`
+
+Empty the bucket `aws s3 rm s3://firehosestack-destinationbucket<id> --recursive`
+
+Delete the bucket `aws s3api delete-bucket --bucket firehosestack-destinationbucket<id> --region us-west-2`
 
 ## Useful commands
 
